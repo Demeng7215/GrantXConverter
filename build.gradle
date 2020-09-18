@@ -1,0 +1,38 @@
+plugins {
+    id 'com.github.johnrengelman.shadow' version '6.0.0'
+    id 'java'
+}
+
+group 'dev.demeng'
+version '1.0.0'
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Quickstart',
+                'Main-Class': 'dev.demeng.grantx.converter.Main'
+    }
+}
+
+shadowJar {
+    relocate 'org.slf4j', 'dev.demeng.grantx.converter.shaded.slf4j'
+    relocate 'com.zaxxer.hikari', 'dev.demeng.grantx.converter.shaded.hikari'
+    relocate 'org.apache.commons.codec', 'dev.demeng.grantx.converter.shaded.commons.codec'
+    relocate 'org.apache.commons.logging', 'dev.demeng.grantx.converter.shaded.commons.logging'
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile 'me.carleslc.Simple-YAML:Simple-Yaml:1.7.1'
+    compile 'com.zaxxer:HikariCP:3.4.5'
+    compile 'org.mariadb.jdbc:mariadb-java-client:2.6.2'
+    compile 'com.h2database:h2:1.4.200'
+    compile 'org.slf4j:slf4j-api:1.7.30'
+    compile 'org.slf4j:slf4j-simple:1.7.30'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
