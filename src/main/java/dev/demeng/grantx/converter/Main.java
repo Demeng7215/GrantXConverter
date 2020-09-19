@@ -1,6 +1,7 @@
 package dev.demeng.grantx.converter;
 
-import dev.demeng.grantx.converter.util.ErrorReporter;
+import dev.demeng.grantx.converter.data.OutputDatabase;
+import dev.demeng.grantx.converter.util.Common;
 import lombok.Getter;
 import org.simpleyaml.configuration.ConfigurationSection;
 import org.simpleyaml.configuration.file.YamlFile;
@@ -8,10 +9,13 @@ import org.simpleyaml.exceptions.InvalidConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public class Main {
 
   @Getter private static YamlFile config;
+
+  @Getter private static OutputDatabase output;
 
   public static void main(String[] args) {
 
@@ -24,12 +28,8 @@ public class Main {
     // TODO Connect/load input
 
     System.out.println("Connecting to output storage...");
-    try {
-      new ConverterDatabase("output-storage");
-    } catch (ConverterDatabase.DatabaseException ex) {
-      return;
-    } catch (Exception ex) {
-      ErrorReporter.report(ex, "Failed to connect to output storage.", true);
+    output = loadOutputStorage();
+    if (output == null) {
       return;
     }
 
@@ -57,14 +57,14 @@ public class Main {
       if (fresh) {
 
         final ConfigurationSection inputStorage = config.createSection("input-storage");
-        inputStorage.set("method", "yml");
+        inputStorage.set("yaml", true);
         inputStorage.set("host", "localhost");
         inputStorage.set("port", 3306);
         inputStorage.set("username", "root");
         inputStorage.set("password", "root");
 
         final ConfigurationSection outputStorage = config.createSection("output-storage");
-        outputStorage.set("method", "h2");
+        outputStorage.set("h2", true);
         outputStorage.set("host", "localhost");
         outputStorage.set("port", 3306);
         outputStorage.set("username", "root");
@@ -74,10 +74,35 @@ public class Main {
       }
 
     } catch (IOException | InvalidConfigurationException ex) {
-      ErrorReporter.report(ex, "Failed to load config.", true);
+      Common.report(ex, "Failed to load config.", true);
       return false;
     }
 
     return true;
+  }
+
+  private static OutputDatabase loadOutputStorage() {
+
+    try {
+      final ConfigurationSection section =
+          Main.getConfig().getConfigurationSection("output-storage");
+      Objects.requireNonNull(section);
+
+      if (section.getBoolean("h2")) {
+        return new OutputDatabase("grantx");
+
+      } else {
+        return new OutputDatabase(
+            section.getString("host"),
+            section.getInt("port"),
+            section.getString("database"),
+            section.getString("username"),
+            section.getString("password"));
+      }
+
+    } catch (Throwable ex) {
+      Common.report(ex, "Failed to connect to output storage.", true);
+      return null;
+    }
   }
 }

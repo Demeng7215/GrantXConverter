@@ -1,6 +1,6 @@
 package dev.demeng.grantx.converter.util;
 
-public class ErrorReporter {
+public class Common {
 
   public static void report(Throwable t, String description, boolean exit) {
 
@@ -11,7 +11,6 @@ public class ErrorReporter {
     System.err.println(description);
 
     if (exit) {
-
       System.exit(1);
     }
   }
