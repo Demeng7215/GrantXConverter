@@ -9,10 +9,12 @@ public class OutputDatabase extends MySQL {
   public OutputDatabase(String host, int port, String database, String username, String password)
       throws SQLException {
     super(host, port, database, username, password);
+    init();
   }
 
   public OutputDatabase(String database) throws SQLException {
     super(database);
+    init();
   }
 
   private void init() throws SQLException {
