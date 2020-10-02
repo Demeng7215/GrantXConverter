@@ -77,6 +77,7 @@ public class Main {
         inputStorage.set("yaml", true);
         inputStorage.set("host", "localhost");
         inputStorage.set("port", 3306);
+        inputStorage.set("database", "minecraft");
         inputStorage.set("username", "root");
         inputStorage.set("password", "root");
 
@@ -84,6 +85,7 @@ public class Main {
         outputStorage.set("h2", true);
         outputStorage.set("host", "localhost");
         outputStorage.set("port", 3306);
+        outputStorage.set("database", "minecraft");
         outputStorage.set("username", "root");
         outputStorage.set("password", "root");
 
