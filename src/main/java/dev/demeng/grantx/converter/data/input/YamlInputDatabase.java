@@ -55,12 +55,12 @@ public class YamlInputDatabase implements InputDatabase {
               status,
               time,
               UUID.fromString(target),
-              UUID.fromString(staff),
+              staff.equals("00000000-0000-0000-0000-000000000000") ? null : UUID.fromString(staff),
               revoker.equals("none") ? null : UUID.fromString(revoker),
               rank,
               "global",
-              duration,
-              reason,
+              duration.replace("custom-duration;", "custom:"),
+              reason.replace("custom-reason;", "custom:"),
               status == Grant.Status.REVOKED ? 0 : -1));
     }
 
