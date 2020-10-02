@@ -32,7 +32,7 @@ public class OutputDatabase extends MySQL {
 
     for (Grant grant : oldGrants) {
       executeUpdate(
-          "INSERT INTO grantx_grants VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
+          "INSERT INTO grantx_grants VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
           grant.getId(),
           grant.getStatus().name(),
           grant.getTime(),
@@ -43,7 +43,8 @@ public class OutputDatabase extends MySQL {
           grant.getServer(),
           grant.getDuration(),
           grant.getReason(),
-          grant.getRevokeTime());
+          grant.getRevokeTime(),
+          System.currentTimeMillis());
     }
   }
 }
