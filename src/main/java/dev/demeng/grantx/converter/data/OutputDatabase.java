@@ -37,7 +37,7 @@ public class OutputDatabase extends MySQL {
           grant.getStatus().name(),
           grant.getTime(),
           grant.getTarget().toString(),
-          grant.getIssuer().toString(),
+          grant.getIssuer() == null ? null : grant.getIssuer().toString(),
           grant.getRevoker() == null ? null : grant.getRevoker().toString(),
           grant.getRank(),
           grant.getServer(),
