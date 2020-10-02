@@ -12,6 +12,7 @@ import org.simpleyaml.exceptions.InvalidConfigurationException;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 
 public class Main {
@@ -41,7 +42,13 @@ public class Main {
       return;
     }
 
-    // TODO Conversion
+    // TODO Update table auto-increment.
+    try {
+      output.convert(input.getGrants());
+    } catch (SQLException ex) {
+      Common.report(ex, "Failed to convert data.", true);
+      return;
+    }
 
     System.out.println("Conversion completed.");
   }
