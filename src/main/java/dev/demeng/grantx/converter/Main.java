@@ -43,6 +43,7 @@ public class Main {
     }
 
     // TODO Update table auto-increment.
+    System.out.println("Converting...");
     try {
       output.convert(input.getGrants());
     } catch (SQLException ex) {
