@@ -64,10 +64,10 @@ public class MySQL {
               + "/"
               + database
               + "?autoReconnect=true&useSSL=false");
-    }
 
-    config.setUsername(username);
-    config.setPassword(password);
+      config.setUsername(username);
+      config.setPassword(password);
+    }
 
     this.source = new HikariDataSource(config);
     this.connection = source.getConnection();
