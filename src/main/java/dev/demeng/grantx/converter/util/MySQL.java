@@ -24,12 +24,14 @@ public class MySQL {
   private String host;
   private int port;
   private final String database;
-  private String username;
-  private String password;
+  private final String username;
+  private final String password;
 
-  protected MySQL(String database) throws SQLException {
+  protected MySQL(String database, String username, String password) throws SQLException {
     this.h2 = true;
     this.database = database;
+    this.username = username;
+    this.password = password;
 
     init();
   }
@@ -64,10 +66,10 @@ public class MySQL {
               + "/"
               + database
               + "?autoReconnect=true&useSSL=false");
-
-      config.setUsername(username);
-      config.setPassword(password);
     }
+
+    config.setUsername(username);
+    config.setPassword(password);
 
     this.source = new HikariDataSource(config);
     this.connection = source.getConnection();

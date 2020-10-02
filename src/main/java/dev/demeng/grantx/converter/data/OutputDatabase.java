@@ -14,8 +14,8 @@ public class OutputDatabase extends MySQL {
     init();
   }
 
-  public OutputDatabase(String database) throws SQLException {
-    super(database);
+  public OutputDatabase(String database, String username, String password) throws SQLException {
+    super(database, username, password);
     init();
   }
 
