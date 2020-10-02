@@ -52,6 +52,7 @@ public class Main {
     }
 
     System.out.println("Conversion completed.");
+    System.exit(0);
   }
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
