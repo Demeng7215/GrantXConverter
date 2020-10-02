@@ -133,7 +133,8 @@ public class Main {
       Objects.requireNonNull(section);
 
       if (section.getBoolean("h2")) {
-        return new OutputDatabase("grantx");
+        return new OutputDatabase(
+            "grantx", config.getString("username"), config.getString("password"));
 
       } else {
         return new OutputDatabase(
