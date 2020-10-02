@@ -53,7 +53,7 @@ public class MySQL {
 
     if (h2) {
       config.setDriverClassName("org.h2.Driver");
-      config.setJdbcUrl("jdbc:h2:." + new File(database).getAbsolutePath() + ";mode=MySQL");
+      config.setJdbcUrl("jdbc:h2:" + new File(database).getAbsolutePath() + ";mode=MySQL");
     } else {
       config.setDriverClassName("com.mysql.jdbc.Driver");
       config.setJdbcUrl(
