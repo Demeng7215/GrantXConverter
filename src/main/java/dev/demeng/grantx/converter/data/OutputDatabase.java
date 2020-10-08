@@ -30,6 +30,8 @@ public class OutputDatabase extends MySQL {
 
   public void convert(List<Grant> oldGrants) throws SQLException {
 
+    int highestId = 0;
+
     for (Grant grant : oldGrants) {
       executeUpdate(
           "INSERT INTO grantx_grants VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);",
@@ -45,6 +47,13 @@ public class OutputDatabase extends MySQL {
           grant.getReason(),
           grant.getRevokeTime(),
           System.currentTimeMillis());
+
+      if (grant.getId() > highestId) {
+        highestId = grant.getId();
+      }
     }
+
+    final int autoIncrement = highestId + 1;
+    executeUpdate("ALTER TABLE grantx_grants AUTO_INCREMENT=" + autoIncrement + ";");
   }
 }
