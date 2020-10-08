@@ -15,10 +15,10 @@ public class MySQLInputDatabase extends MySQL implements InputDatabase {
     init();
   }
 
-  private void init() throws SQLException {}
+  private void init() {}
 
   @Override
   public List<Grant> getGrants() {
-    return null;
+    throw new UnsupportedOperationException("MySQL input is not supported yet");
   }
 }
